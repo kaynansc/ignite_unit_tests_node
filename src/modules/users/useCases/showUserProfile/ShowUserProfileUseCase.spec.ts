@@ -28,12 +28,6 @@ describe("Show User Profile", () => {
 
   it("should not be able to show user profile with invalid id", () => {
     expect(async () => {
-      const { id } = await createUserUseCase.execute({
-        name: "User test",
-        email: "test@test.com.br",
-        password: "passwordsecret",
-      });
-
       await showUserProfileUseCase.execute("invalidID");
     }).rejects.toBeInstanceOf(ShowUserProfileError);
   })
