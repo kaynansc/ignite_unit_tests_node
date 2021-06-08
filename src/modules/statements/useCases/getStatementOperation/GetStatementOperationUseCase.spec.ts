@@ -47,8 +47,8 @@ describe("Get Statement Operation", () => {
     expect(statement).toHaveProperty("id");
   });
 
-  it("should not be able to get statement operation with statement not exists", () => {
-    expect( async () => {
+  it("should not be able to get statement operation with statement not exists", async () => {
+    await expect( async () => {
       const { id } = await createUserUseCase.execute({
         name: "User test",
         email: "test@test.com.br",
@@ -60,11 +60,11 @@ describe("Get Statement Operation", () => {
         statement_id: "idnotexists",
       })
 
-    }).rejects.toBeInstanceOf(GetStatementOperationError.UserNotFound);
+    }).rejects.toBeInstanceOf(GetStatementOperationError.StatementNotFound);
   })
 
-  it("should not be able to get statement operation with user not exists", () => {
-    expect( async () => {
+  it("should not be able to get statement operation with user not exists", async () => {
+    await expect( async () => {
       const { id } = await createUserUseCase.execute({
         name: "User test",
         email: "test@test.com.br",
