@@ -24,12 +24,13 @@ describe("Create Statetment", () => {
   })
 
   it("should not be able to create a new statment with user not exists", () => {
-    expect( async () => {
+    expect(async () => {
       await createStatementUseCase.execute({
         user_id: "idnotexists",
         description: "Deposit Fake",
         amount: 100,
         type: OperationType.DEPOSIT,
+
       })
     }).rejects.toBeInstanceOf(CreateStatementError.UserNotFound);
   })
@@ -46,6 +47,7 @@ describe("Create Statetment", () => {
       description: "Deposit Fake",
       amount: 100,
       type: OperationType.DEPOSIT,
+
     })
 
     expect(statement).toHaveProperty("id");
@@ -64,6 +66,7 @@ describe("Create Statetment", () => {
       description: "Deposit Fake",
       amount: 100,
       type: OperationType.DEPOSIT,
+
     })
 
     const statment_withdraw = await createStatementUseCase.execute({
@@ -71,13 +74,14 @@ describe("Create Statetment", () => {
       description: "Withdraw Fake",
       amount: 50,
       type: OperationType.WITHDRAW,
+
     })
 
     expect(statment_withdraw).toHaveProperty("id");
   })
 
   it("should not be able to create a new withdraw if balance < amount", () => {
-    expect( async () => {
+    expect(async () => {
       const { id } = await createUserUseCase.execute({
         name: "User test",
         email: "test@test.com.br",
@@ -89,6 +93,7 @@ describe("Create Statetment", () => {
         description: "Deposit Fake",
         amount: 100,
         type: OperationType.DEPOSIT,
+
       })
 
       await createStatementUseCase.execute({
@@ -96,6 +101,7 @@ describe("Create Statetment", () => {
         description: "Withdraw Fake",
         amount: 150,
         type: OperationType.WITHDRAW,
+
       })
     }).rejects.toBeInstanceOf(CreateStatementError.InsufficientFunds);
   })

@@ -20,6 +20,11 @@ export class accountsTable1616682561481 implements MigrationInterface {
           type: 'varchar',
         },
         {
+          name: 'sender_id',
+          type: 'uuid',
+          isNullable: true,
+        },
+        {
           name: 'amount',
           type: 'decimal',
           precision: 5,
@@ -28,7 +33,7 @@ export class accountsTable1616682561481 implements MigrationInterface {
         {
           name: 'type',
           type: 'enum',
-          enum: ['deposit', 'withdraw']
+          enum: ['deposit', 'withdraw', 'transfer']
         },
         {
           name: 'created_at',
@@ -43,13 +48,19 @@ export class accountsTable1616682561481 implements MigrationInterface {
       ],
       foreignKeys: [
         {
-          name: 'statements',
+          name: 'FK_USER_ID_USER',
           columnNames: ['user_id'],
           referencedTableName: 'users',
           referencedColumnNames: ['id'],
           onUpdate: 'CASCADE',
           onDelete: 'CASCADE'
-        }
+        },
+        {
+          name: "FK_SENDER_ID_USER",
+          columnNames: ["sender_id"],
+          referencedTableName: "users",
+          referencedColumnNames: ["id"],
+        },
       ]
     }))
   }

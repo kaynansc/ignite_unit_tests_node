@@ -4,6 +4,7 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn
 } from 'typeorm';
 import { v4 as uuid } from 'uuid';
@@ -13,6 +14,7 @@ import { User } from '../../users/entities/User';
 enum OperationType {
   DEPOSIT = 'deposit',
   WITHDRAW = 'withdraw',
+  TRANSFER = 'transfer'
 }
 
 @Entity('statements')
@@ -29,6 +31,9 @@ export class Statement {
 
   @Column()
   description: string;
+
+  @Column('uuid')
+  sender_id?: string;
 
   @Column('decimal', { precision: 5, scale: 2 })
   amount: number;
